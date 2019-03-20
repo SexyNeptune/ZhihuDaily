@@ -1,0 +1,43 @@
+package db;
+
+public class Story {
+
+    public Story(String title, String imgUrl, int type) {
+        this.title = title;
+        ImgUrl = imgUrl;
+        this.type = type;
+    }
+
+    private String title;
+    private String ImgUrl;
+
+    public Story() {
+
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImgUrl() {
+        return ImgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        ImgUrl = imgUrl;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    private int type;
+}

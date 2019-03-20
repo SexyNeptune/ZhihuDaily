@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:padding="10dp"
+    android:background="#00aeff"
+    >
+
+    <ImageView
+        android:id="@+id/nav_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/nav_icon"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/nav_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:text="无名氏"
+        android:layout_toRightOf="@id/nav_icon"
+        android:layout_marginTop="18dp"
+        />
+
+    <TextView
+        android:id="@+id/nav_favor"
+        android:layout_width="135dp"
+        android:layout_height="29dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:drawableLeft="@drawable/nav_favor"
+        android:text="收藏"
+        android:gravity="center_vertical"
+        android:drawablePadding="25dp"
+        />
+
+    <TextView
+        android:id="@+id/nav_download"
+        android:layout_width="135dp"
+        android:layout_height="29dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/nav_favor"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:drawableLeft="@drawable/nav_download"
+        android:text="下载"
+        android:gravity="center_vertical"
+        android:drawablePadding="25dp"
+        />
+
+</RelativeLayout>
