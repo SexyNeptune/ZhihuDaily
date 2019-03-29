@@ -6,7 +6,9 @@
         android:id="@+id/message"
         android:icon="@drawable/message"
         android:title="message"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+
+        />
 
     <item
         android:id="@+id/day_and_night"

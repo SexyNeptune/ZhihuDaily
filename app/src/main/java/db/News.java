@@ -7,9 +7,26 @@ public class News {
     private List<String> storyTitles;
     private List<String> tStoryTitles;
     private List<String> storyImgUri;
-
+    private List<Integer> ids;
+    private List<Integer> tIds;
     public int getDate() {
         return date;
+    }
+
+    public List<Integer> getIds() {
+        return ids;
+    }
+
+    public void setIds(List<Integer> ids) {
+        this.ids = ids;
+    }
+
+    public List<Integer> gettIds() {
+        return tIds;
+    }
+
+    public void settIds(List<Integer> tIds) {
+        this.tIds = tIds;
     }
 
     public void setDate(int date) {
@@ -31,6 +48,8 @@ public class News {
                 ", storyTitles=" + storyTitles +
                 ", tStoryTitles=" + tStoryTitles +
                 ", storyImgUri=" + storyImgUri +
+                ", ids=" + ids +
+                ", tIds=" + tIds +
                 ", tStoryImgUri=" + tStoryImgUri +
                 '}';
     }

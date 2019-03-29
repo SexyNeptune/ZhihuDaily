@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar android:id="@+id/content_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:layout_scrollFlags="scroll|enterAlways|snap"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:id="@+id/tv_popularity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="10"
+            android:layout_marginRight="20dp"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            />
+
+        <CheckBox
+            android:id="@+id/cb_popularity"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_toLeftOf="@id/tv_popularity"
+            android:drawableTop="@drawable/popularity_selector"
+            android:button="@null"
+            />
+
+        <TextView
+            android:id="@+id/tv_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/cb_popularity"
+            android:text="1"
+            android:layout_marginRight="10dp"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            />
+
+        <ImageView
+            android:id="@+id/iv_comments"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_toLeftOf="@id/tv_comments"
+            android:background="@drawable/comments"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="2dp"
+            />
+
+        <CheckBox
+            android:id="@+id/cb_collection"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toLeftOf="@id/iv_comments"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/collection_selector"
+            android:layout_marginTop="3dp"
+            android:button="@null"
+            />
+
+        <Button
+            android:id="@+id/bt_share"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toLeftOf="@id/cb_collection"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/share"
+            android:layout_marginTop="3dp"
+            />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>
