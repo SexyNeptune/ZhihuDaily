@@ -24,7 +24,6 @@ import db.Tstory;
 class MyPagerAdapter extends PagerAdapter {
     private List<Tstory> storyList ;
     private Context mContext;
-    private String url = "https://news-at.zhihu.com/api/4/news/";
 
     public MyPagerAdapter(List<Tstory> tstoryList, Context context) {
         storyList = tstoryList;
@@ -75,7 +74,7 @@ class MyPagerAdapter extends PagerAdapter {
                 //get到了，Context启动Activity的话要添加一个FLAG
                 Intent intent = new Intent(mContext,NewsContentActivity.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  //好像又不用了。。。
-                intent.putExtra("url",url+id);
+                intent.putExtra("id",id);
                 mContext.startActivity(intent);
             }
         });

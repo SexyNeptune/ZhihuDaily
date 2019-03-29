@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import Utils.HttpUtil;
+import db.ExtraData;
 import db.NewsContent;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,6 +30,9 @@ import okhttp3.Response;
 
 public class NewsContentActivity extends AppCompatActivity{
     private static final String TAG = "NewsContentActivity";
+    private String url = "https://news-at.zhihu.com/api/4/news/";
+    private String extra  = "https://news-at.zhihu.com/api/4/story-extra/";
+    private int id ;
     private WebView webView;
     private Toolbar toolbar;
     private ImageView imageView;
@@ -35,7 +40,8 @@ public class NewsContentActivity extends AppCompatActivity{
     private TextView title;
     private CheckBox cb_popularity;
     private CheckBox cb_collect;
-    boolean i = false;
+    private TextView tv_popularity;
+    private TextView tv_comments;
 
 
     Handler handler = new Handler(new Handler.Callback() {
@@ -53,10 +59,38 @@ public class NewsContentActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newscontent);
+        id  = getIntent().getIntExtra("id",0);
         findViews();
         intiView();
         requestBody();
+        requestExtra();
         setListener();
+    }
+
+    private void requestExtra() {
+        String extraUrl = extra + id;
+        HttpUtil.sendOkHttpRequest(extraUrl, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseText = response.body().string();
+                final db.ExtraData extraData =HttpUtil.handleExtraNewsResponse(responseText);
+                Log.e(TAG,extraData.toString());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String comments = String.valueOf(extraData.getComments());
+                        String popularity = String.valueOf(extraData.getPopularity());
+                        tv_comments.setText(comments);
+                        tv_popularity.setText(popularity);
+                    }
+                });
+            }
+        });
     }
 
     private void setListener() {
@@ -65,8 +99,18 @@ public class NewsContentActivity extends AppCompatActivity{
             public void onClick(View view) {
                 if(!cb_popularity.isChecked()){
                     Toast.makeText(NewsContentActivity.this,"取消成功", Toast.LENGTH_SHORT).show();
+                    String text = (String) tv_popularity.getText();
+                    int num = Integer.parseInt(text);
+                    num--;
+                    String numText = String.valueOf(num);
+                    tv_popularity.setText(numText);
                 }else{
                     Toast.makeText(NewsContentActivity.this,"点赞成功", Toast.LENGTH_SHORT).show();
+                    String text = (String) tv_popularity.getText();
+                    int num = Integer.parseInt(text);
+                    num++;
+                    String numText = String.valueOf(num);
+                    tv_popularity.setText(numText);
                 }
             }
         });
@@ -103,12 +147,14 @@ public class NewsContentActivity extends AppCompatActivity{
         imageSource = findViewById(R.id.image_source);
         cb_popularity = findViewById(R.id.cb_popularity);
         cb_collect = findViewById(R.id.cb_collection);
+        tv_comments = findViewById(R.id.tv_comments);
+        tv_popularity = findViewById(R.id.tv_popularity);
     }
 
 
     private void requestBody(){
-        String url = getIntent().getStringExtra("url");
-        HttpUtil.sendOkHttpRequest(url, new Callback() {
+        String contentUrl  = url +  id;
+        HttpUtil.sendOkHttpRequest(contentUrl, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {

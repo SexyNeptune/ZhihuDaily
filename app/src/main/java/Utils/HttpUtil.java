@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import db.ExtraData;
 import db.NewsContent;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -121,6 +123,20 @@ public class HttpUtil {
             e.printStackTrace();
         }
         return  content;
+    }
+
+    public static ExtraData handleExtraNewsResponse (String response){
+        ExtraData extraData = new ExtraData();
+        try {
+            JSONObject object = new JSONObject(response);
+            int popularity = object.getInt("popularity");
+            int comments = object.getInt("comments");
+            extraData.setComments(comments);
+            extraData.setPopularity(popularity);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return extraData;
     }
 
     public static Bitmap getImageBitmap(String url) {

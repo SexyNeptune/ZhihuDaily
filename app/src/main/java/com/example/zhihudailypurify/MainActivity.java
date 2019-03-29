@@ -3,11 +3,15 @@ package com.example.zhihudailypurify;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -49,6 +53,8 @@ import db.Story;
 import db.Tstory;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity{
@@ -91,6 +97,7 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             downloadBinder = (DownloadService.DownloadBinder) iBinder;
+            downloadBinder.startDownload(storyList);
         }
 
         @Override
@@ -109,14 +116,12 @@ public class MainActivity extends AppCompatActivity{
         initView();
         initData();
         setListener();
+        Log.e(TAG, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath());
     }
 
     private void startService() {
         Intent intent = new Intent(this, AutoUpdateService.class);
         startService(intent);
-        Intent intent1 = new Intent(this, DownloadService.class);
-        startService(intent1);
-        bindService(intent1,connection,BIND_AUTO_CREATE); //绑定服务
     }
 
     private void findViews() {
@@ -316,8 +321,12 @@ public class MainActivity extends AppCompatActivity{
         tv_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                downloadBinder.startDownload(storyList);
-                Toast.makeText(MainActivity.this,storyList.get(0).getTitle(),Toast.LENGTH_SHORT).show();
+//                Intent intent1 = new Intent(MainActivity.this, DownloadService.class);
+//                bindService(intent1,connection,BIND_AUTO_CREATE); //绑定服务
+                for(int i = 0; i<storyList.size(); i++){
+                    requestNewsContent(storyList.get(i));
+                    Log.e(TAG,"第"+ i + "条新闻缓存==============");
+                }
             }
         });
 
@@ -341,15 +350,15 @@ public class MainActivity extends AppCompatActivity{
                 switch (state) {
                     case ViewPager.SCROLL_STATE_DRAGGING://1 dragging（拖动）
                         handler.removeCallbacksAndMessages(null); //记得是传null而不是0啊
-                        Log.e(TAG, "拖动state:"+state+"---------->---------->现在的页码索引:"+viewPager.getCurrentItem());
+//                        Log.e(TAG, "拖动state:"+state+"---------->---------->现在的页码索引:"+viewPager.getCurrentItem());
                         break;
                     case ViewPager.SCROLL_STATE_SETTLING://2 settling(安放、定居、解决)
-                        Log.e(TAG, "安放state:"+state+"---------->---------->现在的页码索引:"+viewPager.getCurrentItem());
+//                        Log.e(TAG, "安放state:"+state+"---------->---------->现在的页码索引:"+viewPager.getCurrentItem());
                         break;
                     case ViewPager.SCROLL_STATE_IDLE://0 idle(空闲，挂空挡)
                         handler.removeCallbacksAndMessages(null);
                         handler.sendEmptyMessageDelayed(0,3000);
-                        Log.e(TAG, "挂空挡state:"+state+"---------->---------->现在的页码索引:"+viewPager.getCurrentItem());
+//                        Log.e(TAG, "挂空挡state:"+state+"---------->---------->现在的页码索引:"+viewPager.getCurrentItem());
                         break;
                 }
             }
@@ -411,4 +420,32 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        unbindService(connection);
+    }
+
+    private void requestNewsContent(final Story story) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url("https://news-at.zhihu.com/api/4/news/" + story.getId()).build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    String responseText = response.body().string();
+                    MyDatabaseHelper dbHelper = new MyDatabaseHelper(MainActivity.this,"NewsContent.db",null,1);
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    ContentValues values = new ContentValues();
+                    values.put("newsId",story.getId());
+                    values.put("response",responseText);
+                    db.insert("newsContent",null,values);
+                    values.clear();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 }

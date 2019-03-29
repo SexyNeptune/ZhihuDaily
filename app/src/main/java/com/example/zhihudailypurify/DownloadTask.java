@@ -18,19 +18,17 @@ import okhttp3.Response;
 public class DownloadTask extends AsyncTask<List<Story>,Integer,Integer> {
 
     private DownloadListener listener;
-    private Context mContext;
-    private List<Story> storyList = new ArrayList<>();
 
+    private Context mContext;
 
     public DownloadTask (DownloadListener listener, Context context){
         this.listener = listener;
         mContext =  context;
-
     }
 
     @Override
     protected Integer doInBackground(List<Story>... strings) {
-        storyList = strings[0];
+        List<Story> storyList = strings[0];
         for(int i = 0; i<storyList.size(); i++){
             requestNewsContent(storyList.get(i));
         }

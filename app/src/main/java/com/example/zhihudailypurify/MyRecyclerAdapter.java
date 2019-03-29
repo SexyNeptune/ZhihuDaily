@@ -37,7 +37,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_TWO = 2;
     private List<Story> storyList;
     private Context mContext;
-    private String url = "https://news-at.zhihu.com/api/4/news/";
 
 
     public MyRecyclerAdapter(List<Story> storyList, Context context) {
@@ -100,9 +99,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter {
                         //get到了，Context启动Activity的话要添加一个FLAG
                         Intent intent = new Intent(mContext,NewsContentActivity.class);
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("url",url+id);
+                        intent.putExtra("id",id);
                         mContext.startActivity(intent);
-//                        Toast.makeText(mContext,"你点击了第" + position +"项",Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;

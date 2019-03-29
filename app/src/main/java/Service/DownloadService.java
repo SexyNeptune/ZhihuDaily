@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.zhihudailypurify.DownloadListener;
@@ -19,8 +20,6 @@ public class DownloadService extends Service{
 
     private DownloadTask downloadTask;
 
-    private List<Story> storyList = new ArrayList<>();
-
     private DownloadListener listener = new DownloadListener() {
         @Override
         public void onSuccess() {
@@ -31,11 +30,8 @@ public class DownloadService extends Service{
     public class DownloadBinder extends Binder{
 
         public void startDownload(List<Story> stories){
-            if(downloadTask == null){
-                storyList = stories;
                 downloadTask = new DownloadTask(listener,DownloadService.this);
-                downloadTask.execute(storyList);
-            }
+                downloadTask.execute(stories);
         }
     }
 
@@ -47,4 +43,9 @@ public class DownloadService extends Service{
         return binder;
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e("DownloadService","启动=====================");
+        return super.onStartCommand(intent, flags, startId);
+    }
 }
