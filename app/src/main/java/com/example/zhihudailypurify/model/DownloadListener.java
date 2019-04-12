@@ -1,4 +1,4 @@
-package com.example.zhihudailypurify;
+package com.example.zhihudailypurify.model;
 
 public interface DownloadListener {
     void onSuccess();

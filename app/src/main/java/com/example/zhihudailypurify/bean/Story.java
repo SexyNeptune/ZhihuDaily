@@ -1,6 +1,8 @@
-package db;
+package com.example.zhihudailypurify.bean;
 
-public class Story {
+import java.io.Serializable;
+
+public class Story implements Serializable {
 
     public Story(String title, String imgUrl, int type) {
         this.title = title;

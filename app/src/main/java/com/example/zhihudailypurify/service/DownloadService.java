@@ -1,4 +1,4 @@
-package Service;
+package com.example.zhihudailypurify.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -8,13 +8,12 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.zhihudailypurify.DownloadListener;
-import com.example.zhihudailypurify.DownloadTask;
+import com.example.zhihudailypurify.model.DownloadListener;
+import com.example.zhihudailypurify.model.DownloadTask;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import db.Story;
+import com.example.zhihudailypurify.bean.Story;
 
 public class DownloadService extends Service{
 

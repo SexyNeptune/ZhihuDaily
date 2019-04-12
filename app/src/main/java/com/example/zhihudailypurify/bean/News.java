@@ -1,7 +1,10 @@
-package db;
+package com.example.zhihudailypurify.bean;
 
 import java.util.List;
 
+/**
+ * 主界面新闻
+ */
 public class News {
     private int date;
     private List<String> storyTitles;

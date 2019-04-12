@@ -1,4 +1,4 @@
-package Service;
+package com.example.zhihudailypurify.service;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -14,17 +14,16 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.zhihudailypurify.MainActivity;
 import com.example.zhihudailypurify.R;
 
 import java.io.IOException;
 
-import Utils.HttpUtil;
-import db.News;
+import com.example.zhihudailypurify.util.HttpUtil;
+import com.example.zhihudailypurify.bean.News;
+import com.example.zhihudailypurify.util.ParseUtil;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -91,7 +90,7 @@ public class AutoUpdateService extends Service {
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 final String responseText = response.body().string();
-                news = HttpUtil.handleNewsResponse(responseText);
+                news = ParseUtil.handleNewsResponse(responseText);
                 Log.e(TAG,news.toString());
                 if(news != null){
                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(AutoUpdateService.this).edit();

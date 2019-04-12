@@ -1,4 +1,4 @@
-package db;
+package com.example.zhihudailypurify.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
-    public  static  final String CREATE_BOOK = "create table newsContent(id integer primary key autoincrement ,newsI integerd, response text)";
+    public  static  final String CREATE_BOOK = "create table newsContent(id integer primary key autoincrement ,newsId integerd, response text)";
 
     private Context mContext;
 

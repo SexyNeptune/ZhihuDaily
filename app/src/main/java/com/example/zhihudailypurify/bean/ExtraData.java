@@ -1,5 +1,8 @@
-package db;
+package com.example.zhihudailypurify.bean;
 
+/**
+ * 新闻内容的额外消息
+ */
 public class ExtraData {
     private int popularity;
     private int comments;

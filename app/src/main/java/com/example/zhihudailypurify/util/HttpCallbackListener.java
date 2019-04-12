@@ -1,6 +1,4 @@
-package Utils;
-
-import android.graphics.Bitmap;
+package com.example.zhihudailypurify.util;
 
 public interface HttpCallbackListener {
     void onFinish(String response);

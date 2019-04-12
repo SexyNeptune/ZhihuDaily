@@ -1,4 +1,4 @@
-package db;
+package com.example.zhihudailypurify.bean;
 
 public class NewsContent {
     private String body;

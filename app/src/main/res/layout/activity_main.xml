@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout">
+    android:id="@+id/main_drawer_layout">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/main_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
@@ -29,12 +29,12 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/swipe_refresh"
+            android:id="@+id/main_swipe_refresh"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
 
             <ScrollView
-                android:id="@+id/scroll_view"
+                android:id="@+id/main_scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -45,7 +45,10 @@
                     android:orientation="vertical"
                     >
 
-                    <include layout="@layout/viewpager" />
+                    <com.example.zhihudailypurify.ui.TopViewPager
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/main_myViewPager"/>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -54,10 +57,11 @@
                         >
 
                         <android.support.v7.widget.RecyclerView
-                            android:id="@+id/recyclerview"
+                            android:id="@+id/main_rv_news"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            tools:listitem="@layout/item_recycler"/>
+                            tools:listitem="@layout/item_recycler"
+                            android:background="#F8F4F4"/>
 
                     </RelativeLayout>
 
@@ -72,7 +76,7 @@
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/nav_view"
+        android:id="@+id/main_nav_view"
         android:layout_gravity="start"
         app:menu="@menu/nav_menu"
         app:headerLayout="@layout/nav_header">

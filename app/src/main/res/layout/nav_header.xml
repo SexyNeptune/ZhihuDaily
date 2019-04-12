@@ -7,25 +7,25 @@
     >
 
     <ImageView
-        android:id="@+id/nav_icon"
+        android:id="@+id/nav_iv_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/nav_icon"
         android:layout_margin="10dp"/>
 
     <TextView
-        android:id="@+id/nav_name"
+        android:id="@+id/nav_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textColor="#ffffff"
         android:text="无名氏"
-        android:layout_toRightOf="@id/nav_icon"
+        android:layout_toRightOf="@id/nav_iv_icon"
         android:layout_marginTop="18dp"
         />
 
     <TextView
-        android:id="@+id/nav_favor"
+        android:id="@+id/nav_tv_favor"
         android:layout_width="135dp"
         android:layout_height="29dp"
         android:layout_alignParentBottom="true"
@@ -44,11 +44,11 @@
         />
 
     <TextView
-        android:id="@+id/nav_download"
+        android:id="@+id/nav_tv_download"
         android:layout_width="135dp"
         android:layout_height="29dp"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/nav_favor"
+        android:layout_toRightOf="@id/nav_tv_favor"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         android:textSize="16sp"
